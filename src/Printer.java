@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Printer {
 
     private String[] abc = null;
@@ -6,35 +8,56 @@ public class Printer {
     // Constructor: accepta un String amb la representació de tot l'alfabet
     // Hi haurà 27 lletres en total, separades per un espai en blanc.
     Printer(String alphabet) {
-        int longitud = 0;
+        int longitud;
+        int filas = 0;
+        int fila = 0;
+        int posicion = 0;
 
         for (int i = 0; i < alphabet.length() ; i++) {
             if (alphabet.charAt(i) == '\n') {
-                longitud = i-1;
-                break;// ojo
+                fila = i-1;// ojo
+                break;
             }
 
         }
-        longitud -= 25;
-        longitud /= 27;
 
-        StringBuilder [] abc = new StringBuilder[longitud];
-
-        for (int i = 0,aux = 1,posicion = 0; i < alphabet.length() ; i++) {
-            if (alphabet.charAt(i) == '\n'){
-                posicion = 0;
-                continue;
+        for (int i = 0; i < alphabet.length() ; i++) {
+            if (alphabet.charAt(i) == '\n') {
+                filas++;
             }
+        }
+        filas++;
 
-            if (aux == longitud+1){
-                aux = 1;
-                posicion++;
-                continue;
+        longitud = (fila - 25) / 27;
+
+        System.out.println(fila);
+        System.out.println(filas);
+        System.out.println(longitud);
+
+        String [] abc = new String[27];
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < filas ; i++) {
+            for (int j = 0,x = 0; j < fila ; j++) {
+                if (x == longitud){
+                    if (i != filas-1)sb.append('\n');
+                    abc[posicion] += sb.toString();
+                    sb.setLength(0);
+                    posicion++;
+                    x = 0;
+                    continue;
+                }
+
+                if (x < longitud+3){
+                    sb.append(alphabet.charAt(i));
+                    x++;
+                }
             }
-
-            
+            posicion = 0;
 
         }
+
+        System.out.println(Arrays.toString(abc));
 
 
     }
