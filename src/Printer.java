@@ -11,8 +11,6 @@ public class Printer {
         this.alphabet = alphabet;
     }
 
-
-
     // Mètode render: accepta un String amb el text a representar i torna
     // també un String amb el text en forma d'ASCII Art.
     // Només es consideren les lletres majúscules de la A a la Z. Les
@@ -27,32 +25,23 @@ public class Printer {
 
         for (int i = 0; i < abc.length ; i++) {
             for (int j = 0; j < text.length() ; j++) {
+
                 if (text.charAt(j) >= 'A' && text.charAt(j) <= 'Z'){
                     posicion = (text.charAt(j) - 'A') * (longitud+1);
                     sb.append(abc[i].substring(posicion, posicion + longitud));
 
-                    if (j != text.length()-1) sb.append(' ');
-
-                    continue;
-                }
-
-                if (text.charAt(j) == ' '){
+                }else if (text.charAt(j) == ' '){
                     sb.append(space(longitud));
-
-                    if (j != text.length()-1) sb.append(' ');
 
                 }else{
                     posicion = 26 * (longitud+1);
                     sb.append(abc[i].substring(posicion, posicion + longitud));
-                    //interrogante
-                    if (j != text.length()-1) sb.append(' ');
-
                 }
+
+                if (j != text.length()-1) sb.append(' ');
 
             }
             if (i != abc.length -1) sb.append('\n');
-
-            System.out.println(sb.toString());
         }
 
         return sb.toString();
