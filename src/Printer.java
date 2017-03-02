@@ -20,14 +20,15 @@ public class Printer {
     // a «?» (manco l'espai en blanc).
     public String render(String text) {
         text = text.toUpperCase();
-        String [] abc = alphabet.split("n");
+        String [] abc = alphabet.split("\n");
         StringBuilder sb = new StringBuilder();
         int longitud = (abc[0].length() - 25) / 27;
+        int posicion;
 
         for (int i = 0; i < abc.length ; i++) {
             for (int j = 0; j < text.length() ; j++) {
                 if (text.charAt(j) >= 'A' && text.charAt(j) <= 'Z'){
-                    int posicion = text.charAt(j) - 'A';
+                    posicion = (text.charAt(j) - 'A') * (longitud+1);
                     sb.append(abc[i].substring(posicion, posicion + longitud));
 
                     if (j != text.length()-1) sb.append(' ');
@@ -36,19 +37,32 @@ public class Printer {
                 }
 
                 if (text.charAt(j) == ' '){
-                    //lo del espacio
-                    continue;
+                    sb.append(space(longitud));
+
+                    if (j != text.length()-1) sb.append(' ');
 
                 }else{
+                    posicion = 26 * (longitud+1);
+                    sb.append(abc[i].substring(posicion, posicion + longitud));
                     //interrogante
-                }
+                    if (j != text.length()-1) sb.append(' ');
 
+                }
 
             }
             if (i != abc.length -1) sb.append('\n');
 
+            System.out.println(sb.toString());
         }
 
-        return null;
+        return sb.toString();
+    }
+
+    private String space(int longitud){
+        StringBuilder sb = new StringBuilder();
+        for (int k = 0; k < longitud ; k++) {
+            sb.append(' ');
+        }
+        return sb.toString();
     }
 }
