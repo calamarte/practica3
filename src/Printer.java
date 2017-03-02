@@ -2,67 +2,13 @@ import java.util.Arrays;
 
 public class Printer {
 
-    private String[] abc = null;
+    private String alphabet;
 
 
     // Constructor: accepta un String amb la representació de tot l'alfabet
     // Hi haurà 27 lletres en total, separades per un espai en blanc.
     Printer(String alphabet) {
-        int longitud;
-        int filas = 0;
-        int columnas = 0;
-        int posicion = 0;
-
-        //cuenta las columnas excluyendo '\n'
-        for (int i = 0; i < alphabet.length() ; i++) {
-            if (alphabet.charAt(i) == '\n') {
-                columnas = i-1;// ojo
-                break;
-            }
-
-        }
-
-        //cuenta las filas
-        for (int i = 0; i < alphabet.length() ; i++) {
-            if (alphabet.charAt(i) == '\n') {
-                filas++;
-            }
-        }
-        filas++;
-
-        //cuantas columnas por letra
-        longitud = (columnas - 25) / 27;
-
-        System.out.println(columnas);
-        System.out.println(filas);
-        System.out.println(longitud);
-
-        String [][] abc = new String[filas][27];
-        StringBuilder sb = new StringBuilder();
-
-//        for (int i = 0; i < filas ; i++) {
-//            for (int j = 0,x = 0; j < columnas ; j++) {
-//                if (x == longitud){
-//                    if (i != filas-1)sb.append('\n');
-//                    abc[posicion][] += sb.toString();
-//                    sb.setLength(0);
-//                    posicion++;
-//                    x = 0;
-//                    continue;
-//                }
-//
-//                if (x < longitud+3){
-//                    sb.append(alphabet.charAt(i));
-//                    x++;
-//                }
-//            }
-//            posicion = 0;
-//
-//        }
-
-        System.out.println(Arrays.deepToString(abc));
-
-
+        this.alphabet = alphabet;
     }
 
 
@@ -73,6 +19,36 @@ public class Printer {
     // minúscules es passen a majúscules, i els altres caràctes es tradueixen
     // a «?» (manco l'espai en blanc).
     public String render(String text) {
+        text = text.toUpperCase();
+        String [] abc = alphabet.split("n");
+        StringBuilder sb = new StringBuilder();
+        int longitud = (abc[0].length() - 25) / 27;
+
+        for (int i = 0; i < abc.length ; i++) {
+            for (int j = 0; j < text.length() ; j++) {
+                if (text.charAt(j) >= 'A' && text.charAt(j) <= 'Z'){
+                    int posicion = text.charAt(j) - 'A';
+                    sb.append(abc[i].substring(posicion, posicion + longitud));
+
+                    if (j != text.length()-1) sb.append(' ');
+
+                    continue;
+                }
+
+                if (text.charAt(j) == ' '){
+                    //lo del espacio
+                    continue;
+
+                }else{
+                    //interrogante
+                }
+
+
+            }
+            if (i != abc.length -1) sb.append('\n');
+
+        }
+
         return null;
     }
 }
